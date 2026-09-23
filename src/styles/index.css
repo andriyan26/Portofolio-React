@@ -1,0 +1,301 @@
+/* ==========================================================================
+   ANDRIAN PORTFOLIO - DESIGN SYSTEM & GLOBAL STYLES
+   ========================================================================== */
+
+:root {
+  /* Fonts */
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 40px rgba(255, 255, 255, 0.1);
+}
+
+/* Light Theme Variables */
+:root[data-theme="light"], :root {
+  --bg-primary: #f8f9fb;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #edf2f7;
+  --bg-glass: rgba(248, 249, 251, 0.92);
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  
+  --text-primary: #09090b;
+  --text-secondary: #334155;
+  --text-muted: #475569;
+  --text-inverse: #ffffff;
+
+  --border-color: rgba(15, 23, 42, 0.14);
+  --border-hover: rgba(15, 23, 42, 0.35);
+  --outline-text: rgba(15, 23, 42, 0.35);
+  --outline-stroke: rgba(15, 23, 42, 0.68);
+
+  --accent: #09090b;
+  --accent-foreground: #ffffff;
+  --accent-glow: rgba(15, 23, 42, 0.15);
+  
+  --pill-bg: #09090b;
+  --pill-text: #ffffff;
+  --pill-hover-bg: #1e293b;
+  
+  --code-bg: #f1f5f9;
+  --tag-bg: rgba(15, 23, 42, 0.08);
+  --tag-border: rgba(15, 23, 42, 0.18);
+
+  --indicator-color: #09090b;
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+}
+
+/* Dark Theme Variables (Exact Obsidian Black from Video) */
+:root[data-theme="dark"] {
+  --bg-primary: #09090b;
+  --bg-secondary: #111114;
+  --bg-tertiary: #18181c;
+  --bg-glass: rgba(9, 9, 11, 0.82);
+  --bg-card: #121215;
+  --bg-card-hover: #1b1b20;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-inverse: #09090b;
+
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.2);
+  --outline-text: rgba(255, 255, 255, 0.15);
+  --outline-stroke: rgba(255, 255, 255, 0.28);
+
+  --accent: #ffffff;
+  --accent-foreground: #09090b;
+  --accent-glow: rgba(255, 255, 255, 0.12);
+
+  --pill-bg: #ffffff;
+  --pill-text: #09090b;
+  --pill-hover-bg: #e2e8f0;
+
+  --code-bg: #050507;
+  --tag-bg: rgba(255, 255, 255, 0.05);
+  --tag-border: rgba(255, 255, 255, 0.1);
+
+  --indicator-color: #ffffff;
+  --modal-overlay: rgba(0, 0, 0, 0.75);
+}
+
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Typography Utilities */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+/* Monospace Badges */
+.mono-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* Section Wrapper */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .section-container {
+    padding: 40px 18px;
+  }
+}
+
+.section-header {
+  margin-bottom: 38px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 13px;
+  border-radius: var(--radius-full);
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.28);
+  color: #06b6d4;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 12px rgba(6, 182, 212, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all var(--transition-fast);
+}
+
+.section-tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #06b6d4;
+  box-shadow: 0 0 8px #06b6d4, 0 0 14px rgba(6, 182, 212, 0.7);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+:root[data-theme="light"] .section-tag {
+  background: rgba(8, 145, 178, 0.09);
+  border-color: rgba(8, 145, 178, 0.3);
+  color: #0e7490;
+}
+
+:root[data-theme="light"] .section-tag::before {
+  background: #0891b2;
+  box-shadow: 0 0 6px rgba(8, 145, 178, 0.6);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 4.2vw, 3.3rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin-bottom: 14px;
+  color: var(--text-primary);
+}
+
+.section-desc {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 100%;
+  font-weight: 400;
+}
+
+/* Blinking Cursor for Terminal / Headings */
+.typewriter-cursor {
+  display: inline-block;
+  width: 3.5px;
+  height: 0.88em;
+  background-color: var(--accent-primary);
+  margin-left: 5px;
+  vertical-align: -2px;
+  border-radius: 1px;
+  animation: blink 0.85s infinite;
+  box-shadow: 0 0 10px var(--glow-primary);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Ripple Mask for Theme Switch Animation (As seen in video 00:03) */
+.theme-switch-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.65s ease;
+  opacity: 0;
+}
+
+.theme-switch-overlay.animating {
+  opacity: 1;
+  transform: scale(3.5);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
