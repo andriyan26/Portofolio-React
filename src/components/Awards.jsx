@@ -66,7 +66,7 @@ export default function Awards({ onSelectAward }) {
       <div className="section-header reveal">
         <span className="section-tag">RECOGNITION</span>
         <h2 className="section-title">
-          <TypewriterText text="Awards &amp; Achievements" />
+          <TypewriterText text="Awards & Achievements" />
         </h2>
         <p className="section-desc">
           Dokumentasi resmi penghargaan Wisudawan Terbaik S1, apresiasi Pusdiklat BPS RI, dan rekognisi program PKM.

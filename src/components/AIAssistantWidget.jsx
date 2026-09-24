@@ -155,20 +155,60 @@ Spesialisasi mencakup arsitektur web modern (React, Laravel, Django), integrasi 
   3. Manajemen tiket dukungan infrastruktur IT korporat.
   4. Verifikasi sesi login aman (remember session) dan pemulihan kata sandi.
   5. Antarmuka modern glassmorphic dengan mode gelap & terang.`,
-      chips: ['Proyek JOBTRACKR', 'Proyek Posyandu KNN', 'Proyek Rental Kamera'],
+      chips: ['Proyek Memento AI', 'Proyek Learnova AI', 'Proyek JOBTRACKR'],
     };
   }
 
-  // 9. General Projects / Portfolio
+  // 9. Specific: MEMENTO AI (Diary & Life Story Vault)
+  if (/(memento|diary|jurnal|memori|kenangan|kisah hidup|sentiment)/i.test(query)) {
+    const p = selectedProjects.find((proj) => proj.id === 'memento-ai') || selectedProjects[4];
+    return {
+      text: `📖 **${p.title}**
+
+• **Deskripsi**: Platform brankas memori dan jurnal digital berbasis AI cerdas untuk merangkum goresan pikiran menjadi arsip kenangan abadi, analisis wawasan emosi, dan rak buku kenangan interaktif.
+• **Status**: Live Hosted Web 👉 [Kunjungi Memento AI](https://diaryandrian.tplp004.com/)
+• **Teknologi**: ${p.architecture}
+• **Fitur Unggulan**:
+  1. Brankas memori digital & editor jurnal interaktif dengan rich storytelling.
+  2. Wawasan AI & analisis sentimen refleksi emosional pengguna.
+  3. Garis waktu (timeline) kenangan terstruktur & pengingat kilas balik.
+  4. Galeri rak buku kenangan berdasar suasana hati (Lega, Perenungan, Syukur, Teduh).
+  5. Mode gelap / terang elegan dengan audio relaksasi penenang pikiran.`,
+      chips: ['Proyek Learnova AI', 'Proyek JOBTRACKR', 'Proyek Posyandu KNN'],
+    };
+  }
+
+  // 10. Specific: LEARNOVA AI (Corporate EdTech & RAG Platform)
+  if (/(learnova|edtech|corporate learning|sop internal|rag|nova ai|pelatihan)/i.test(query)) {
+    const p = selectedProjects.find((proj) => proj.id === 'learnova-ai') || selectedProjects[5];
+    return {
+      text: `🚀 **${p.title}**
+
+• **Deskripsi**: Platform pembelajaran korporat berbasis Retrieval-Augmented Generation (RAG v2.4) dan AI Agent Nova yang menyajikan alur belajar adaptif terhubung ke 14 SOP internal perusahaan.
+• **Status**: Live Hosted Web 👉 [Kunjungi Learnova AI](https://learnovandrian.tplp004.com/)
+• **Teknologi**: ${p.architecture}
+• **Fitur Unggulan**:
+  1. Sistem RAG Aktif v2.4 terhubung langsung ke basis pengetahuan 14 SOP internal korporat.
+  2. Alur belajar adaptif berbasis target kompetensi (cth: Junior DevOps Engineer).
+  3. Asisten Belajar AI Nova untuk konsultasi teknis dan bimbingan kurikulum cerdas.
+  4. Kuis evaluasi otomatis dengan pelacakan pemahaman materi dan streak belajar.
+  5. Pencarian universal dokumen & SOP internal berbasis vector search shortcut (⌘K).`,
+      chips: ['Proyek Memento AI', 'Proyek NEXORA', 'Proyek JOBTRACKR'],
+    };
+  }
+
+  // 11. General Projects / Portfolio
   if (/(proyek|project|karya|portofolio|portfolio|aplikasi|sistem|app)/i.test(query)) {
     return {
-      text: `Andrian memiliki **20+ proyek sistem informasi & aplikasi digital teruji**. 4 Proyek Unggulan Teratas:
+      text: `Andrian memiliki **20+ proyek sistem informasi & aplikasi digital teruji**. 6 Proyek Unggulan Teratas di Galeri:
 
-1. 🩺 **Posyandu Belimbing (Machine Learning KNN)**: Klasifikasi status gizi balita & deteksi dini stunting sesuai standar WHO. 👉 [Live Web](https://posyandubelimbing.tplp004.com/)
-2. 📷 **Kancil Rental Kamera**: Platform booking online dan manajemen inventaris alat fotografi premium. 👉 [Live Web](https://rentalkamera.tplp004.com/)
-3. 💼 **JOBTRACKR**: Platform manajemen dan pelacakan lamaran kerja cerdas dengan command center operasional. 👉 [Live Web](https://jobtrackrandrian.tplp004.com/)
-4. 🛡️ **NEXORA**: Portal masuk & registrasi enterprise terenkripsi SSL 256-bit dengan asisten cerdas NORA AI. 👉 [Live Web](https://nexora-andrian.tplp004.com/login)`,
-      chips: ['Detail JOBTRACKR', 'Detail NEXORA', 'Detail Posyandu KNN', 'Lihat Arsip 20+ Proyek'],
+1. 🩺 **Posyandu Belimbing (ML KNN)**: Klasifikasi status gizi balita & stunting standar WHO. 👉 [Live Web](https://posyandubelimbing.tplp004.com/)
+2. 📷 **Kancil Rental Kamera**: Platform booking online dan manajemen inventaris fotografi. 👉 [Live Web](https://rentalkamera.tplp004.com/)
+3. 💼 **JOBTRACKR**: Operations dashboard pelacak lamaran kerja & Gmail sync. 👉 [Live Web](https://jobtrackrandrian.tplp004.com/)
+4. 🛡️ **NEXORA**: Enterprise IT support portal terenkripsi SSL 256-bit & NORA AI. 👉 [Live Web](https://nexora-andrian.tplp004.com/login)
+5. 📖 **MEMENTO AI**: Brankas memori & jurnal AI — Turn your thoughts into memories. 👉 [Live Web](https://diaryandrian.tplp004.com/)
+6. 🚀 **LEARNOVA AI**: Agentic Corporate Learning Platform berbasis RAG v2.4 & AI Nova. 👉 [Live Web](https://learnovandrian.tplp004.com/)`,
+      chips: ['Detail Memento AI', 'Detail Learnova AI', 'Detail JOBTRACKR', 'Lihat Arsip 20+ Proyek'],
     };
   }
 

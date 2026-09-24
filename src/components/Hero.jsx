@@ -1,12 +1,33 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { personalData } from '../data/portfolioData';
 
-export default function Hero({ onScrollDown, theme = 'dark' }) {
+/**
+ * Hero Component (Landing Page Awal):
+ * Tampilan potret bersih, elegan, dan original Andrian.
+ * Setelah animasi intro selesai, elemen-elemen muncul secara perlahan (smooth fade-in entrance):
+ * - Marquee outline raksasa teks ANDRIAN & INFORMATIKA
+ * - Foto potret utama Andrian dengan interaksi 3D tilt
+ * - Indikator scroll down vertikal
+ */
+export default function Hero({ onScrollDown, theme = 'dark', isIntroActive = false }) {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [isAppeared, setIsAppeared] = useState(!isIntroActive);
   const heroRef = useRef(null);
 
+  // Muncul secara perlahan tepat setelah intro selesai
+  useEffect(() => {
+    if (!isIntroActive) {
+      const timer = setTimeout(() => {
+        setIsAppeared(true);
+      }, 120);
+      return () => clearTimeout(timer);
+    } else {
+      setIsAppeared(false);
+    }
+  }, [isIntroActive]);
+
   const handleMouseMove = (e) => {
-    if (!heroRef.current) return;
+    if (!heroRef.current || !isAppeared) return;
     const rect = heroRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -21,23 +42,20 @@ export default function Hero({ onScrollDown, theme = 'dark' }) {
     setTilt({ x: 0, y: 0 });
   };
 
-  // Clean, elegant text exactly like in the reference video (no clutter, no confusing dots)
   const nameTrack = "ANDRIAN   ANDRIAN   ANDRIAN   ANDRIAN   ";
   const majorTrack = "INFORMATIKA   INFORMATIKA   INFORMATIKA   INFORMATIKA   ";
-
-  // Transparent cutout portrait used for both light and dark themes
   const portraitSrc = personalData.hero.portraitImg || '/Poto.png';
 
   return (
     <section
-      className="hero-section"
+      className={`hero-section ${isAppeared ? 'hero-revealed' : ''}`}
       id="hero"
       ref={heroRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background Giant Ultra-Slow Outline Marquee */}
-      <div className="hero-marquee-wrapper" aria-hidden="true">
+      {/* Background Giant Ultra-Slow Outline Marquee (Muncul Perlahan) */}
+      <div className="hero-marquee-wrapper hero-entrance-bg" aria-hidden="true">
         <div className="hero-marquee-track track-left">
           <span className="hero-outline-text">{nameTrack}</span>
           <span className="hero-outline-text">{nameTrack}</span>
@@ -48,11 +66,18 @@ export default function Hero({ onScrollDown, theme = 'dark' }) {
         </div>
       </div>
 
-      {/* Foreground Hero Portrait with subtle 3D Tilt */}
+      {/* Foreground Hero Portrait with 3D Tilt (Muncul Perlahan) */}
       <div
-        className="hero-portrait-wrapper"
+        className="hero-portrait-wrapper hero-entrance-portrait"
         style={{
-          transform: `perspective(1000px) rotateY(${tilt.x}deg) rotateX(${tilt.y}deg) scale(1.02)`,
+          transform: isAppeared
+            ? `perspective(1000px) rotateY(${tilt.x}deg) rotateX(${tilt.y}deg) scale(1.02)`
+            : 'perspective(1000px) scale(0.92) translateY(35px)',
+          opacity: isAppeared ? 1 : 0,
+          filter: isAppeared ? 'blur(0)' : 'blur(10px)',
+          transition: isAppeared && (tilt.x !== 0 || tilt.y !== 0)
+            ? 'transform 0.15s ease-out'
+            : 'transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease',
         }}
       >
         <img
@@ -63,9 +88,9 @@ export default function Hero({ onScrollDown, theme = 'dark' }) {
         />
       </div>
 
-      {/* Vertical Scroll Down Indicator */}
+      {/* Vertical Scroll Down Indicator (Muncul Perlahan) */}
       <div
-        className="hero-scroll-indicator"
+        className="hero-scroll-indicator hero-entrance-indicator"
         onClick={onScrollDown}
         style={{ cursor: 'pointer' }}
         title="Scroll down to explore"

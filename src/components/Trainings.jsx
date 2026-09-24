@@ -37,7 +37,7 @@ function TrainingPhotoSlider({
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Auto-play timer for multi-photo items (auto-slides every 2.4 seconds)
+  // Auto-play timer for multi-photo items (auto-slides every 4.2 seconds)
   useEffect(() => {
     if (N <= 1 || isHovered) return;
 
@@ -48,7 +48,7 @@ function TrainingPhotoSlider({
       } else {
         setCurrentIndex((prev) => (prev >= N ? 1 : prev + 1));
       }
-    }, 2400);
+    }, 4200);
 
     return () => clearInterval(timer);
   }, [N, isHovered, direction]);
@@ -407,7 +407,7 @@ export default function Trainings({ onSelectCertificate }) {
       <div className="section-header reveal">
         <span className="section-tag">EXPERIENCE, PUBLICATIONS &amp; SEMINARS</span>
         <h2 className="section-title">
-          <TypewriterText text="Trainings &amp; Hackathons" />
+          <TypewriterText text="Trainings & Hackathons" />
         </h2>
         <p className="section-desc">
           Program magang profesional, pengabdian masyarakat, publikasi jurnal ilmiah terakreditasi nasional (SINTA), sertifikasi standar industri, serta rangkaian seminar nasional &amp; kuliah umum Universitas Pamulang bersama para pakar teknologi.

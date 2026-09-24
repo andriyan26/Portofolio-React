@@ -11,6 +11,7 @@ import ArchiveView from './components/ArchiveView';
 import AIAssistantWidget from './components/AIAssistantWidget';
 import MessageModal from './components/MessageModal';
 import AwardModal from './components/AwardModal';
+import IntroScreen from './components/IntroScreen';
 import { ArrowUp } from 'lucide-react';
 import './styles/components.css';
 
@@ -23,6 +24,7 @@ export default function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [rippleStyle, setRippleStyle] = useState(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const [showIntro, setShowIntro] = useState(true);
 
   // Sync theme with document attribute
   useEffect(() => {
@@ -127,6 +129,11 @@ export default function App() {
 
   return (
     <div className="portfolio-app-root">
+      {/* Intro Animation Screen */}
+      {showIntro && (
+        <IntroScreen onComplete={() => setShowIntro(false)} />
+      )}
+
       {/* Interactive Cursor Spotlight Follower */}
       <div
         className="spotlight-glow"
@@ -165,7 +172,11 @@ export default function App() {
       {/* Main View or Archive View */}
       {!isArchiveView ? (
         <main>
-          <Hero onScrollDown={() => scrollToSection('work')} theme={theme} />
+          <Hero
+            onScrollDown={() => scrollToSection('work')}
+            theme={theme}
+            isIntroActive={showIntro}
+          />
           <WorkGallery
             onOpenArchive={() => {
               setIsArchiveView(true);
