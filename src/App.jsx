@@ -97,17 +97,26 @@ export default function App() {
 
       if (isArchiveView) return;
 
+      // Saat berada di Hero / posisi atas, jangan aktifkan tab navbar
+      if (scrollY < 260) {
+        setActiveSection('');
+        return;
+      }
+
       const sections = ['work', 'capabilities', 'about', 'awards', 'trainings', 'contact'];
+      const scrollThreshold = Math.min(window.innerHeight * 0.38, 280);
+
+      let currentSection = 'work';
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 250 && rect.bottom >= 200) {
-            setActiveSection(sectionId);
-            break;
+          if (rect.top <= scrollThreshold) {
+            currentSection = sectionId;
           }
         }
       }
+      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -117,7 +126,7 @@ export default function App() {
   const scrollToSection = (sectionId) => {
     const el = document.getElementById(sectionId);
     if (el) {
-      const yOffset = -55;
+      const yOffset = -72; // Clearance sempurna untuk sticky navbar (~68px)
       const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }

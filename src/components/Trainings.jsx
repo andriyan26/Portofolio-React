@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ExternalLink, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { trainings } from '../data/portfolioData';
 import TypewriterText from './TypewriterText';
@@ -36,10 +36,24 @@ function TrainingPhotoSlider({
   const [currentIndex, setCurrentIndex] = useState(direction === 'right' ? N : 0);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const sliderRef = useRef(null);
 
-  // Auto-play timer for multi-photo items (auto-slides every 4.2 seconds)
   useEffect(() => {
-    if (N <= 1 || isHovered) return;
+    if (!sliderRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(sliderRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-play timer for multi-photo items (auto-slides every 4.2 seconds only when visible)
+  useEffect(() => {
+    if (N <= 1 || isHovered || !isInView) return;
 
     const timer = setInterval(() => {
       setIsTransitioning(true);
@@ -51,7 +65,7 @@ function TrainingPhotoSlider({
     }, 4200);
 
     return () => clearInterval(timer);
-  }, [N, isHovered, direction]);
+  }, [N, isHovered, isInView, direction]);
 
   // Handle transition end for seamless infinite loop (invisible snap)
   const handleTransitionEnd = () => {
@@ -138,6 +152,7 @@ function TrainingPhotoSlider({
 
   return (
     <div
+      ref={sliderRef}
       className={`training-slider-wrap ${isCertificate ? 'is-certificate-wrap' : ''} slide-${direction}`}
       onClick={() => onZoom(photoList[displayIndex])}
       onMouseEnter={() => setIsHovered(true)}

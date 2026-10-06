@@ -34,7 +34,7 @@ Dokumen CV resmi Andrian tersedia dalam format PDF lengkap dengan rincian:
 • **Publikasi Ilmiah**: 3x Publikasi Jurnal Nasional Terakreditasi SINTA (JUKTISI & BIIKMA).
 • **Keahlian**: React, Laravel, PHP, Python, Django, OpenCV, MySQL, Software QA.
 
-👉 [**Unduh CV Lengkap Andrian (PDF)**](/CV-ANDRIAN.pdf)`,
+👉 [**Unduh CV Lengkap Andrian (PDF)**](/CV ANDRIAN TERBARU.pdf)`,
       chips: ['Prestasi & Penghargaan', 'Tech Stack & Keahlian', 'Cara Menghubungi'],
     };
   }
@@ -193,22 +193,82 @@ Spesialisasi mencakup arsitektur web modern (React, Laravel, Django), integrasi 
   3. Asisten Belajar AI Nova untuk konsultasi teknis dan bimbingan kurikulum cerdas.
   4. Kuis evaluasi otomatis dengan pelacakan pemahaman materi dan streak belajar.
   5. Pencarian universal dokumen & SOP internal berbasis vector search shortcut (⌘K).`,
-      chips: ['Proyek Memento AI', 'Proyek NEXORA', 'Proyek JOBTRACKR'],
+      chips: ['Proyek Memento AI', 'Proyek NEXORA', 'Proyek SAKUWISE AI'],
     };
   }
 
-  // 11. General Projects / Portfolio
+  // 11. Specific: SAKUWISE AI (Smart Finance & AI Budgeting)
+  if (/(sakuwise|saku\s*wise|keuangan|financial|finance|budgeting|arus kas)/i.test(query)) {
+    const p = selectedProjects.find((proj) => proj.id === 'sakuwise-ai') || selectedProjects[6];
+    return {
+      text: `💳 **${p.title}**
+
+• **Deskripsi**: Platform pengelolaan keuangan cerdas berbasis AI untuk pencatatan arus kas terotomasi, analisis budgeting pintar (50/30/20), dan dashboard finansial real-time.
+• **Status**: Live Hosted Web 👉 [Kunjungi SAKUWISE AI](https://sakuwiseai.tplp004.com/login)
+• **Teknologi**: ${p.architecture}
+• **Fitur Unggulan**:
+  1. Pencatatan arus kas & multi-rekening (pemasukan, pengeluaran, dompet digital).
+  2. Asisten Finansial Cerdas AI untuk analisis & prediksi pengeluaran bulanan.
+  3. Sistem budgeting pintar (50/30/20 rule) dengan peringatan limit pengeluaran.
+  4. Dashboard analitik visual grafik kas periodik.
+  5. Portal masuk terenkripsi dengan proteksi sesi kredensial pengguna.`,
+      chips: ['Proyek ROCKETDRIVE', 'Proyek DecisionFlow AI', 'Proyek JOBTRACKR'],
+    };
+  }
+
+  // 12. Specific: ROCKETDRIVE (Automotive & Financing Platform)
+  if (/(rocketdrive|rocket\s*drive|otomotif|showroom|kredit mobil|test drive|mobil)/i.test(query)) {
+    const p = selectedProjects.find((proj) => proj.id === 'rocketdrive') || selectedProjects[7];
+    return {
+      text: `🏎️ **${p.title}**
+
+• **Deskripsi**: Platform showroom otomotif digital pintar untuk eksplorasi katalog mobil idaman (25+ model), simulasi kredit transparan, penjadwalan test drive, dan paspor digital kendaraan.
+• **Status**: Live Hosted Web 👉 [Kunjungi ROCKETDRIVE](https://rocketdrive.tplp004.com/)
+• **Teknologi**: ${p.architecture}
+• **Fitur Unggulan**:
+  1. Katalog interaktif 25+ model kendaraan lengkap dengan spesifikasi teknis.
+  2. Kalkulator simulasi kredit cerdas (perhitungan DP, tenor, bunga transparan).
+  3. Sistem penjadwalan uji berkendara (Schedule Test Drive) otomatis.
+  4. Paspor digital riwayat kendaraan dengan jaminan verifikasi 100% VIN asli.
+  5. Showroom resmi digital dengan garansi servis dan hotline 24 jam.`,
+      chips: ['Proyek SAKUWISE AI', 'Proyek DecisionFlow AI', 'Proyek Rental Kamera'],
+    };
+  }
+
+  // 13. Specific: DecisionFlow AI (Decision Intelligence & Agentic AI)
+  if (/(decisionflow|decision\s*flow|decision\s*matrix|keputusan|agentic\s*ai|shield\s*ai)/i.test(query)) {
+    const p = selectedProjects.find((proj) => proj.id === 'decisionflow-ai') || selectedProjects[8];
+    return {
+      text: `🧠 **${p.title}**
+
+• **Deskripsi**: Platform kecerdasan keputusan berbasis Agentic AI untuk merumuskan pilihan strategis, pemodelan matriks multi-kriteria, analisis komparatif risiko, dan verifikasi keamanan SHIELD AI.
+• **Status**: Live Hosted Web 👉 [Kunjungi DecisionFlow AI](https://decisionflowai.tplp004.com/)
+• **Teknologi**: ${p.architecture}
+• **Fitur Unggulan**:
+  1. Kerangka analitik keputusan komprehensif didukung Agentic AI Intelligence.
+  2. Pemodelan matriks keputusan multi-kriteria (MCDA) berbobot objektif.
+  3. Analisis komparatif opsi solusi & pemetaan skenario risiko terukur.
+  4. Portal masuk terenkripsi dengan verifikasi keamanan AI terintegrasi (SHIELD AI).
+  5. Laporan hasil keputusan dan panduan langkah eksekusi terstruktur.`,
+      chips: ['Proyek SAKUWISE AI', 'Proyek ROCKETDRIVE', 'Proyek Learnova AI'],
+    };
+  }
+
+  // 14. General Projects / Portfolio
   if (/(proyek|project|karya|portofolio|portfolio|aplikasi|sistem|app)/i.test(query)) {
     return {
-      text: `Andrian memiliki **20+ proyek sistem informasi & aplikasi digital teruji**. 6 Proyek Unggulan Teratas di Galeri:
+      text: `Andrian memiliki **28+ proyek sistem informasi & aplikasi digital teruji**. 9 Proyek Unggulan Teratas di Galeri:
 
-1. 🩺 **Posyandu Belimbing (ML KNN)**: Klasifikasi status gizi balita & stunting standar WHO. 👉 [Live Web](https://posyandubelimbing.tplp004.com/)
-2. 📷 **Kancil Rental Kamera**: Platform booking online dan manajemen inventaris fotografi. 👉 [Live Web](https://rentalkamera.tplp004.com/)
+1. 🩺 **Posyandu Belimbing (ML KNN)**: Klasifikasi gizi balita & stunting standar WHO. 👉 [Live Web](https://posyandubelimbing.tplp004.com/)
+2. 📷 **Kancil Rental Kamera**: Platform booking online & inventaris fotografi. 👉 [Live Web](https://rentalkamera.tplp004.com/)
 3. 💼 **JOBTRACKR**: Operations dashboard pelacak lamaran kerja & Gmail sync. 👉 [Live Web](https://jobtrackrandrian.tplp004.com/)
 4. 🛡️ **NEXORA**: Enterprise IT support portal terenkripsi SSL 256-bit & NORA AI. 👉 [Live Web](https://nexora-andrian.tplp004.com/login)
-5. 📖 **MEMENTO AI**: Brankas memori & jurnal AI — Turn your thoughts into memories. 👉 [Live Web](https://diaryandrian.tplp004.com/)
-6. 🚀 **LEARNOVA AI**: Agentic Corporate Learning Platform berbasis RAG v2.4 & AI Nova. 👉 [Live Web](https://learnovandrian.tplp004.com/)`,
-      chips: ['Detail Memento AI', 'Detail Learnova AI', 'Detail JOBTRACKR', 'Lihat Arsip 20+ Proyek'],
+5. 📖 **MEMENTO AI**: Brankas memori & jurnal AI. 👉 [Live Web](https://diaryandrian.tplp004.com/)
+6. 🚀 **LEARNOVA AI**: Agentic Corporate Learning Platform berbasis RAG v2.4 & AI Nova. 👉 [Live Web](https://learnovandrian.tplp004.com/)
+7. 💳 **SAKUWISE AI**: Smart financial intelligence & autonomous budgeting AI. 👉 [Live Web](https://sakuwiseai.tplp004.com/login)
+8. 🏎️ **ROCKETDRIVE**: Automotive digital showroom & credit simulation platform. 👉 [Live Web](https://rocketdrive.tplp004.com/)
+9. 🧠 **DecisionFlow AI**: Decision intelligence platform berbasis Agentic AI. 👉 [Live Web](https://decisionflowai.tplp004.com/)`,
+      chips: ['Detail SAKUWISE AI', 'Detail ROCKETDRIVE', 'Detail DecisionFlow AI', 'Lihat Arsip 28+ Proyek'],
     };
   }
 
@@ -374,11 +434,11 @@ export default function AIAssistantWidget() {
             <a
               key={match.index}
               href={url}
-              download={isPdf ? 'CV ANDRIAN.pdf' : undefined}
+              download={isPdf ? 'CV ANDRIAN TERBARU.pdf' : undefined}
               target={url.startsWith('http') || isPdf ? '_blank' : undefined}
               rel={url.startsWith('http') || isPdf ? 'noopener noreferrer' : undefined}
               className="ai-link"
-              title={isPdf ? 'Klik untuk langsung mengunduh CV (PDF)' : undefined}
+              title={isPdf ? 'Klik untuk langsung mengunduh CV Terbaru (PDF)' : undefined}
             >
               {title}
             </a>

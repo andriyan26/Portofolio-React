@@ -22,6 +22,10 @@ export default function Navbar({
   ];
 
   const handleNavClick = (id) => {
+    if (id === 'capabilities') {
+      window.dispatchEvent(new CustomEvent('reassemble-tech-icons'));
+    }
+
     if (isArchiveView) {
       onToggleArchive();
       setTimeout(() => {
@@ -91,12 +95,12 @@ export default function Navbar({
           </button>
 
           <a
-            href={personalData.resumeUrl || '/CV-ANDRIAN.pdf'}
-            download="CV ANDRIAN.pdf"
+            href={personalData.resumeUrl || '/CV ANDRIAN TERBARU.pdf'}
+            download="CV ANDRIAN TERBARU.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="cv-download-btn"
-            title="Unduh CV Resmi Andrian (PDF)"
+            title="Unduh CV Resmi Terbaru Andrian (PDF)"
           >
             <Download size={14} />
             <span>CV</span>
@@ -136,8 +140,8 @@ export default function Navbar({
             </button>
           ))}
           <a
-            href={personalData.resumeUrl || '/CV-ANDRIAN.pdf'}
-            download="CV ANDRIAN.pdf"
+            href={personalData.resumeUrl || '/CV ANDRIAN TERBARU.pdf'}
+            download="CV ANDRIAN TERBARU.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="mobile-nav-link"

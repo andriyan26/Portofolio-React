@@ -30,8 +30,8 @@ export default function Contact({ onOpenMessageModal }) {
           </p>
 
           <a
-            href={personalData.resumeUrl || '/CV-ANDRIAN.pdf'}
-            download="CV ANDRIAN.pdf"
+            href={personalData.resumeUrl || '/CV ANDRIAN TERBARU.pdf'}
+            download="CV ANDRIAN TERBARU.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="view-more-btn"
@@ -43,7 +43,7 @@ export default function Contact({ onOpenMessageModal }) {
               gap: '8px',
               textDecoration: 'none',
             }}
-            title="Unduh Resume / CV Resmi Andrian (PDF)"
+            title="Unduh Resume / CV Resmi Terbaru Andrian (PDF)"
           >
             <span>DOWNLOAD RESUME (CV)</span>
             <Download size={16} />

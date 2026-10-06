@@ -123,12 +123,12 @@ export default function AboutMe() {
           {personalData.about.resumePrompt}{' '}
         </span>
         <a
-          href={personalData.resumeUrl || '/CV-ANDRIAN.pdf'}
-          download="CV ANDRIAN.pdf"
+          href={personalData.resumeUrl || '/CV ANDRIAN TERBARU.pdf'}
+          download="CV ANDRIAN TERBARU.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="about-resume-link"
-          title="Unduh Resume / CV Resmi Andrian (PDF)"
+          title="Unduh Resume / CV Resmi Terbaru Andrian (PDF)"
         >
           <span>{personalData.about.resumeLinkText}</span>
           <Download size={15} />

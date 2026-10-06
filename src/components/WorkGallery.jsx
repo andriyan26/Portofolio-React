@@ -3,7 +3,6 @@ import {
   ChevronLeft,
   ChevronRight,
   ArrowUpRight,
-  ExternalLink,
   Eye,
   Rocket
 } from 'lucide-react';
@@ -23,6 +22,8 @@ export default function WorkGallery({ onOpenArchive }) {
   const [isPaused, setIsPaused] = useState(false);
   const [selectedDetailProject, setSelectedDetailProject] = useState(null);
   const [timerProgressKey, setTimerProgressKey] = useState(0);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef(null);
 
   const total = selectedProjects.length;
   const AUTOPLAY_INTERVAL = 5500; // 5.5 detik (sesuai permintaan user: 5-6 detik)
@@ -42,9 +43,22 @@ export default function WorkGallery({ onOpenArchive }) {
     setTimerProgressKey((prev) => prev + 1);
   };
 
-  // Auto-Play Timer: Otomatis berganti setiap 5.5 detik jika tidak di-hover / sedang melihat modal
+  // Hanya jalankan autoplay jika WorkGallery sedang tampak di layar (Zero Layout Shift bagi section lain)
   useEffect(() => {
-    if (isPaused || selectedDetailProject) return;
+    if (!sectionRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-Play Timer: Otomatis berganti setiap 5.5 detik jika gallery sedang terlihat di layar & tidak di-hover / sedang melihat modal
+  useEffect(() => {
+    if (!isInView || isPaused || selectedDetailProject) return;
 
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % total);
@@ -52,7 +66,7 @@ export default function WorkGallery({ onOpenArchive }) {
     }, AUTOPLAY_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [isPaused, selectedDetailProject, total, activeIndex]);
+  }, [isInView, isPaused, selectedDetailProject, total, activeIndex]);
 
   const activeProject = selectedProjects[activeIndex];
 
@@ -80,7 +94,7 @@ export default function WorkGallery({ onOpenArchive }) {
   };
 
   return (
-    <section className="section-container" id="work">
+    <section className="section-container" id="work" ref={sectionRef}>
       {/* Header Row with Scroll Reveal */}
       <div className="work-header-row reveal">
         <div>
@@ -244,7 +258,10 @@ export default function WorkGallery({ onOpenArchive }) {
 
       {/* Active Project Details & Actions Below Carousel */}
       {activeProject && (
-        <div className="active-project-details reveal delay-2">
+        <div
+          key={activeProject.id}
+          className="active-project-details active-project-fade reveal delay-2"
+        >
           <h3 className="active-project-title">{activeProject.title}</h3>
           <p className="active-project-desc">{activeProject.description}</p>
 
@@ -276,18 +293,16 @@ export default function WorkGallery({ onOpenArchive }) {
               <span>View Detail</span>
             </button>
 
-            {activeProject.repoUrl && (
-              <a
-                href={activeProject.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-launch-btn tertiary"
-                title="Buka repositori kode di GitHub"
-              >
-                <GithubIcon size={17} />
-                <span>GitHub Code</span>
-              </a>
-            )}
+            <a
+              href={activeProject.repoUrl || "https://github.com/andriyan26"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-launch-btn tertiary"
+              title="Buka repositori kode di GitHub resmi Andrian (https://github.com/andriyan26)"
+            >
+              <GithubIcon size={17} />
+              <span>GitHub Code</span>
+            </a>
           </div>
         </div>
       )}

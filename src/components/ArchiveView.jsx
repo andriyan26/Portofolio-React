@@ -42,7 +42,7 @@ export default function ArchiveView({ onClose }) {
         </h1>
         <p className="section-desc">
           {activeTab === 'technical'
-            ? 'Koleksi lengkap dari 20+ sistem perangkat lunak, sistem terintegrasi, dan proyek rekayasa yang telah saya kerjakan.'
+            ? 'Koleksi lengkap dari 28+ sistem perangkat lunak, sistem terintegrasi, dan proyek rekayasa yang telah saya kerjakan.'
             : 'Karya kreatif, aset visual, sistem manajemen konten, dan workflow digital yang dikembangkan berdampingan dengan pekerjaan teknis.'}
         </p>
       </div>

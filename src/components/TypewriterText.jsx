@@ -58,28 +58,43 @@ export default function TypewriterText({
   }, [inView, cleanText, typingSpeed, delay]);
 
   const visibleText = inView ? cleanText.slice(0, displayedLength) : '';
-  const hiddenText = inView ? cleanText.slice(displayedLength) : cleanText;
 
   return (
     <span
       ref={containerRef}
       className="typewriter-heading-wrap"
-      style={{ display: 'inline', position: 'relative' }}
+      style={{ display: 'inline-block', position: 'relative', verticalAlign: 'baseline' }}
     >
-      <span>{visibleText}</span>
-      <span className="typewriter-cursor" aria-hidden="true" />
-      {/* Invisible Sizer: Mengunci dimensi/tinggi persis sama sejak awal di semua layar */}
+      {/* Invisible Sizer: Mengunci dimensi horizontal & vertikal secara permanen tanpa memecah kata */}
       <span
         aria-hidden="true"
         style={{
           opacity: 0,
           visibility: 'hidden',
-          display: hiddenText ? 'inline' : 'none',
           userSelect: 'none',
           pointerEvents: 'none',
+          display: 'inline-block',
         }}
       >
-        {hiddenText}
+        {cleanText}
+      </span>
+
+      {/* Layer Teks Berjalan: Diposisikan persis di atas ruang sizer yang sudah terkunci */}
+      <span
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          whiteSpace: 'nowrap',
+          overflow: 'visible',
+          display: 'inline-flex',
+          alignItems: 'baseline',
+        }}
+      >
+        <span>{visibleText}</span>
+        <span className="typewriter-cursor" aria-hidden="true" />
       </span>
     </span>
   );
