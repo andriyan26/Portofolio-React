@@ -329,15 +329,9 @@ export default function IntroScreen({ onComplete }) {
       {/* 60FPS Lightning & Galaxy Canvas */}
       <canvas ref={canvasRef} className="intro-canvas" />
 
-      {/* Center Cinematic Content (Persis seperti di video: Bersih, Mewah, Tidak Ramai) */}
+      {/* Center Cinematic Content - Hanya Loading Bar di Tengah */}
       <div className="intro-minimal-center">
-        {/* Title: Welcome To My Portofolio Website */}
-        <h1 className="intro-video-title">
-          Welcome To My <br />
-          <span className="intro-video-highlight">Portofolio</span> Website
-        </h1>
-
-        {/* Minimalist Clean Loader (Seperti di video) */}
+        {/* Minimalist Clean Loader (Seperti di video referensi) */}
         <div className="intro-video-loader">
           <div className="loader-info-row">
             <span className="loader-label">Loading...</span>
