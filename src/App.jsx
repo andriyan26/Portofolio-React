@@ -42,7 +42,7 @@ export default function App() {
 
   // Scroll Reveal Observer: Triggers smooth fade-in for every section
   useEffect(() => {
-    const observerCallback = (entries, observer) => {
+    const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('in-view');
@@ -51,14 +51,27 @@ export default function App() {
     };
 
     const observer = new IntersectionObserver(observerCallback, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -40px 0px',
+      threshold: 0.1,
+      rootMargin: '0px 0px -30px 0px',
     });
 
-    const revealElements = document.querySelectorAll('.reveal');
-    revealElements.forEach((el) => observer.observe(el));
+    const observeAllReveals = () => {
+      const revealElements = document.querySelectorAll('.reveal:not(.in-view)');
+      revealElements.forEach((el) => observer.observe(el));
+    };
 
-    return () => observer.disconnect();
+    observeAllReveals();
+
+    // Observe DOM mutations to catch any dynamic reveal elements
+    const mutationObserver = new MutationObserver(() => {
+      observeAllReveals();
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
   }, [isArchiveView]);
 
   // Handle circular theme toggle transition (matches video at 00:03)
@@ -183,6 +196,7 @@ export default function App() {
         <main>
           <Hero
             onScrollDown={() => scrollToSection('work')}
+            onOpenMessage={() => setIsMessageModalOpen(true)}
             theme={theme}
             isIntroActive={showIntro}
           />

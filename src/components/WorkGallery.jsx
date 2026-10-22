@@ -260,7 +260,7 @@ export default function WorkGallery({ onOpenArchive }) {
       {activeProject && (
         <div
           key={activeProject.id}
-          className="active-project-details active-project-fade reveal delay-2"
+          className="active-project-details active-project-fade"
         >
           <h3 className="active-project-title">{activeProject.title}</h3>
           <p className="active-project-desc">{activeProject.description}</p>

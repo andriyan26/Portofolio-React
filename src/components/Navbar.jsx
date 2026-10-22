@@ -151,6 +151,27 @@ export default function Navbar({
             <Download size={16} />
             <span>DOWNLOAD CV (PDF)</span>
           </a>
+          <button
+            className="mobile-nav-link"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              background: 'var(--pill-bg)',
+              color: 'var(--pill-text)',
+              padding: '12px 18px',
+              borderRadius: '9999px',
+              fontWeight: 700,
+              marginTop: '4px'
+            }}
+            onClick={() => {
+              setMobileOpen(false);
+              onOpenMessage();
+            }}
+          >
+            <span>HIRE ME / REKRUT ANDRIAN</span>
+            <ArrowUpRight size={16} />
+          </button>
         </div>
       )}
     </header>
