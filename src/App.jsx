@@ -11,6 +11,8 @@ import ArchiveView from './components/ArchiveView';
 import AIAssistantWidget from './components/AIAssistantWidget';
 import MessageModal from './components/MessageModal';
 import AwardModal from './components/AwardModal';
+import ProjectDetailModal from './components/ProjectDetailModal';
+import CommandPalette from './components/CommandPalette';
 import IntroScreen from './components/IntroScreen';
 import { ArrowUp } from 'lucide-react';
 import './styles/components.css';
@@ -20,7 +22,9 @@ export default function App() {
   const [isArchiveView, setIsArchiveView] = useState(false);
   const [activeSection, setActiveSection] = useState('work');
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [selectedAward, setSelectedAward] = useState(null);
+  const [selectedProjectDetail, setSelectedProjectDetail] = useState(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [rippleStyle, setRippleStyle] = useState(null);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
@@ -38,6 +42,25 @@ export default function App() {
     };
     window.addEventListener('mousemove', handleGlobalMouseMove);
     return () => window.removeEventListener('mousemove', handleGlobalMouseMove);
+  }, []);
+
+  // Global Shortcut for Command Palette: Ctrl+K / Cmd+K or "/"
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsCommandPaletteOpen((prev) => !prev);
+      } else if (
+        e.key === '/' &&
+        !['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName) &&
+        !document.activeElement?.isContentEditable
+      ) {
+        e.preventDefault();
+        setIsCommandPaletteOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   // Scroll Reveal Observer: Triggers smooth fade-in for every section
@@ -189,6 +212,7 @@ export default function App() {
           setIsArchiveView(!isArchiveView);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
 
       {/* Main View or Archive View */}
@@ -235,6 +259,32 @@ export default function App() {
         award={selectedAward}
         onClose={() => setSelectedAward(null)}
       />
+
+      {/* Global Interactive Command Palette (Spotlight Search: Ctrl+K / ⌘K) */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        onNavigate={scrollToSection}
+        onOpenMessage={() => setIsMessageModalOpen(true)}
+        onOpenAI={() => window.dispatchEvent(new CustomEvent('open-ai-assistant'))}
+        onSelectProject={(project) => setSelectedProjectDetail(project)}
+        onSelectAward={(award) => setSelectedAward(award)}
+        toggleTheme={toggleTheme}
+        theme={theme}
+        isArchiveView={isArchiveView}
+        onToggleArchive={() => {
+          setIsArchiveView(!isArchiveView);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
+
+      {/* Global Project Detail Modal */}
+      {selectedProjectDetail && (
+        <ProjectDetailModal
+          project={selectedProjectDetail}
+          onClose={() => setSelectedProjectDetail(null)}
+        />
+      )}
 
       {/* Scroll To Top Button */}
       {showScrollTop && (

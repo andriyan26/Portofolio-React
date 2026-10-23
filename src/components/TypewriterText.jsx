@@ -2,16 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 
 /**
  * TypewriterText:
- * Efek teks ketik presisi dengan ZERO LAYOUT SHIFT:
+ * Efek teks ketik presisi dengan ZERO LAYOUT SHIFT & RESPONSIF PENUH:
  * - Mengetik 1 kali secara mulus saat bagian judul memasuki tampilan layar (Intersection Observer).
- * - Teks tetap utuh dan TIDAK dihapus berulang kali, sehingga pembaca dapat fokus membaca tanpa pusing.
- * - Menggunakan invisible sizer untuk mengunci ruang tata letak (tinggi & pembungkusan baris) sejak awal di HP / Desktop.
- * - Kursor berkedip techy tetap aktif untuk menjaga estetika modern.
+ * - Teks membungkus (wrap) secara natural per kata di layar HP maupun Desktop tanpa melebihi batas (overflow).
+ * - Menggunakan ghost/invisible text inline untuk mengunci ruang tata letak (tinggi & baris) sejak awal tanpa layout shift.
+ * - Kursor berkedip techy dengan net layout width 0px agar tidak menggeser pembungkusan kata.
  */
 export default function TypewriterText({
   text = '',
-  typingSpeed = 50,
-  delay = 150,
+  typingSpeed = 40,
+  delay = 120,
 }) {
   const cleanText = typeof text === 'string' ? text.replace(/&amp;/g, '&') : '';
   const [displayedLength, setDisplayedLength] = useState(0);
@@ -57,45 +57,25 @@ export default function TypewriterText({
     return () => clearTimeout(startTimeout);
   }, [inView, cleanText, typingSpeed, delay]);
 
-  const visibleText = inView ? cleanText.slice(0, displayedLength) : '';
+  const visiblePart = inView ? cleanText.slice(0, displayedLength) : '';
+  const invisiblePart = inView ? cleanText.slice(displayedLength) : cleanText;
+  const isDone = inView && displayedLength >= cleanText.length;
 
   return (
     <span
       ref={containerRef}
       className="typewriter-heading-wrap"
-      style={{ display: 'inline-block', position: 'relative', verticalAlign: 'baseline' }}
+      role="text"
+      aria-label={cleanText}
     >
-      {/* Invisible Sizer: Mengunci dimensi horizontal & vertikal secara permanen tanpa memecah kata */}
-      <span
-        aria-hidden="true"
-        style={{
-          opacity: 0,
-          visibility: 'hidden',
-          userSelect: 'none',
-          pointerEvents: 'none',
-          display: 'inline-block',
-        }}
-      >
-        {cleanText}
-      </span>
-
-      {/* Layer Teks Berjalan: Diposisikan persis di atas ruang sizer yang sudah terkunci */}
-      <span
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          whiteSpace: 'nowrap',
-          overflow: 'visible',
-          display: 'inline-flex',
-          alignItems: 'baseline',
-        }}
-      >
-        <span>{visibleText}</span>
-        <span className="typewriter-cursor" aria-hidden="true" />
-      </span>
+      <span className="typewriter-visible">{isDone ? cleanText : visiblePart}</span>
+      <span className="typewriter-cursor" aria-hidden="true" />
+      {!isDone && (
+        <span className="typewriter-ghost" aria-hidden="true">
+          {invisiblePart}
+        </span>
+      )}
     </span>
   );
 }
+

@@ -365,6 +365,16 @@ export default function AIAssistantWidget() {
     }
   }, [isOpen, isMinimized]);
 
+  // Listen for external open event (e.g. from CommandPalette)
+  useEffect(() => {
+    const handleExternalOpen = () => {
+      setIsOpen(true);
+      setIsMinimized(false);
+    };
+    window.addEventListener('open-ai-assistant', handleExternalOpen);
+    return () => window.removeEventListener('open-ai-assistant', handleExternalOpen);
+  }, []);
+
   const handleSendMessage = (textToSend) => {
     const question = (typeof textToSend === 'string' ? textToSend : inputValue).trim();
     if (!question) return;

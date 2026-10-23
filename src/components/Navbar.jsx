@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sun, Moon, ArrowUpRight, Menu, X, Download } from 'lucide-react';
+import { Sun, Moon, ArrowUpRight, Menu, X, Download, Search } from 'lucide-react';
 import { personalData } from '../data/portfolioData';
 
 export default function Navbar({
@@ -10,6 +10,7 @@ export default function Navbar({
   onOpenMessage,
   isArchiveView,
   onToggleArchive,
+  onOpenCommandPalette,
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -83,8 +84,30 @@ export default function Navbar({
           </button>
         )}
 
-        {/* Action Buttons: Theme Toggle, CV Download & Hire Me */}
+        {/* Action Buttons: Spotlight Search, Theme Toggle, CV Download & Hire Me */}
         <div className="nav-actions">
+          {/* Desktop Spotlight Search Pill */}
+          <button
+            className="nav-spotlight-btn"
+            onClick={onOpenCommandPalette}
+            aria-label="Cari proyek, keahlian, dan aksi cepat"
+            title="Buka Spotlight Search (Shortcut: Ctrl+K / ⌘K atau tekan /)"
+          >
+            <Search size={14} className="cmd-icon-cyan" />
+            <span>Search...</span>
+            <span className="nav-spotlight-kbd">⌘K</span>
+          </button>
+
+          {/* Mobile Search Button Icon */}
+          <button
+            className="nav-mobile-search-btn"
+            onClick={onOpenCommandPalette}
+            aria-label="Cari di Portofolio"
+            title="Cari proyek & keahlian..."
+          >
+            <Search size={18} />
+          </button>
+
           <button
             className="theme-toggle-btn"
             onClick={(e) => toggleTheme(e)}
@@ -130,6 +153,18 @@ export default function Navbar({
       {/* Mobile Drawer */}
       {mobileOpen && !isArchiveView && (
         <div className="mobile-drawer">
+          <button
+            className="mobile-nav-link"
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#06b6d4' }}
+            onClick={() => {
+              setMobileOpen(false);
+              onOpenCommandPalette();
+            }}
+          >
+            <Search size={16} />
+            <span>SPOTLIGHT SEARCH (⌘K)</span>
+          </button>
+
           {navItems.map((item) => (
             <button
               key={item.id}
@@ -145,7 +180,7 @@ export default function Navbar({
             target="_blank"
             rel="noopener noreferrer"
             className="mobile-nav-link"
-            style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#06b6d4', textDecoration: 'none' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-primary)', textDecoration: 'none' }}
             onClick={() => setMobileOpen(false)}
           >
             <Download size={16} />
